@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+{% block stylesheets %}
+{{parent()}}
+<link rel="stylesheet" href=" {{ asset('css/inscription/style.css') }}">
+{% endblock %}
+
+{% block content %}
+{{parent()}}
+<!-- JQUERY STEP -->
+{# <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script> #}
+<div class="container mt-4 d-flex justify-content-center">
+
+<div class="form ">
+<div class="zone_gauche ">
+
+ <h4 id="title">Inscription</h4>
+<img src=" {{asset('images/etudiant.png')}}" id="image_etudiant" alt="">
+</div>
+        <div class="{{app.session.has('inscription_close') ? 'd-none' : '' }}   ">
+            {{ form_start(form) }}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                                        {{ form_label(form.etudiant.nomComplet) }}
+                                            {{form_widget(form.etudiant.nomComplet)}}
+                        </div>
+                        <div class="form-group col-md-6">
+                        {{ form_label(form.etudiant.lieuDeNaissance) }}
+                                            {{form_widget(form.etudiant.lieuDeNaissance)}}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form_label(form.etudiant.sexe) }}
+                                            {{form_widget(form.etudiant.sexe)}}
+                        </div>
+                        <div class="form-group col-md-6">
+                                        {{ form_label(form.etudiant.dateDeNaissanceAt) }}
+                                            {{form_widget(form.etudiant.dateDeNaissanceAt)}}
+                        </div>
+                        
+                    </div>
+
+                     <div class="form-group">
+                        {{ form_label(form.etudiant.tuteur) }}
+                                            {{form_widget(form.etudiant.tuteur)}}
+                    </div>
+                     <div class="form-group">
+                        {{ form_label(form.classe) }}
+                                            {{form_widget(form.classe)}}
+                    </div>
+           
+     {{ form_end(form) }}
+    </div>
+     {% if app.session.has('inscription_close') %}
+          {% set msg = app.session.get('inscription_close') %}
+        <div class="inscription-close d-flex justify-content-center flex-column">
+                    <h3 id="info-title">inscriptions & reInscription impossible.</h3>
+                    <p id="info-msg"> {{msg}} </p>
+                    <a href="{{path('app_home')}}" class="d-block link-white text-decoration-underline" title="">
+                            retour sur le bureau?
+                        </a>
+        </div>
+    {% endif %}
+ 
+</div>
+
+    
+     
+</div>
+
+                  
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/inscription/script.js') }}"></script>
+
+    {% endblock %}

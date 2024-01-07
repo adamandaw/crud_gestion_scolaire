@@ -1,0 +1,80 @@
+:root {
+    --couleurBrun: #351f16;
+    --orange:#f58612;
+  }
+#title-form-planning{
+    font-weight: bold;
+    color: black;
+}
+label{
+    font-weight: bold;
+    color: black;
+}
+/* Removes the clear button from date inputs */
+input[type="date"]::-webkit-clear-button {
+    display: none;
+}
+
+/* Removes the spin button */
+input[type="date"]::-webkit-inner-spin-button { 
+    display: none;
+}
+
+/* Always display the drop down caret */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: #2c3e50;
+}
+
+/* A few custom styles for date inputs */
+input[type="date"] {
+    appearance: none;
+    -webkit-appearance: none;
+    color: #95a5a6;
+    font-family: "Helvetica", arial, sans-serif;
+    font-size: 18px;
+    border:1px solid #ecf0f1;
+    background:#ecf0f1;
+    padding:5px;
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
+input[type="date"], focus {
+    color: #95a5a6;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+legend{
+    font-weight: bold;
+    color: black;
+}
+#planning_beginAt_hour option, 
+#planning_beginAt_minute option,
+#planning_endAt_hour option,
+#planning_endAt_minute option{
+    font-weight: bold;
+    color: black;
+
+}
+/* #planning_beginAt_hour option{
+    padding: 2px;
+    font-weight: bold;
+    color: black;
+} */
+.publier{
+    background-color: var(--orange);
+    padding: 8px;
+    font-weight: bold;
+    width: 100px;
+}
+.publier:hover{
+    transform: scale(1.1) ;
+-webkit-transform: scale(1.1) ;
+-moz-transform: scale(1.1) ;
+    background-color: var(--orange);
+    cursor: pointer;
+    box-shadow: 15px 15px 26px -12px rgba(0,0,0,0.75);
+-webkit-box-shadow: 15px 15px 26px -12px rgba(0,0,0,0.75);
+-moz-box-shadow: 15px 15px 26px -12px rgba(0,0,0,0.75);
+}

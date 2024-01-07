@@ -1,0 +1,110 @@
+
+
+
+:root {
+    --couleurBrun: #351f16;
+    --orange:#f58612;
+  }
+
+#classe_save{
+    background-color: var(--orange);
+    color: white;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+#classe_save:hover {
+    box-shadow : -3px 13px 5px 0px rgba(0,0,0,0.39);
+-webkit-box-shadow : -3px 13px 5px 0px rgba(0,0,0,0.39);
+-moz-box-shadow : -3px 13px 5px 0px rgba(0,0,0,0.39);
+transform: scale(1.1) ;
+-webkit-transform: scale(1.1) ;
+-moz-transform: scale(1.1) ;
+}
+#classe_filiere {
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: black;
+    /* font-weight: bold; */
+     background-color: white;
+
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Optionnel : styliser les options du select */
+#classe_filiere option {
+    opacity: 0.5;
+    /* Ajoutez ici vos règles de style personnalisées pour les options */
+}
+.form-check {
+    /* border: 1px solid red; */
+    border-radius: 4px;
+    padding: 3px;
+    margin: 10px;
+    /* background-color: black; */
+    color: rgb(7, 1, 1);
+    font-weight: bold;
+    /* font-size: 10px; */
+  }
+  
+
+
+#form-border{
+     border-radius: 4px solid;
+     width: 900px;
+     box-shadow: -3px -6px 5px 0px rgba(0,0,0,0.33);
+     -webkit-box-shadow: -3px -6px 5px 0px rgba(0,0,0,0.33);
+     -moz-box-shadow: -3px -6px 5px 0px rgba(0,0,0,0.33);
+  }
+  #title{
+    color: white;
+    background-color: var(--couleurBrun);
+    text-align: start;
+    padding: 13px;
+    
+  }
+#section{
+
+    padding: 0px 30px 30px 30px;
+    background-color: white;
+}
+
+#classe_filiere{
+    outline: none;
+font-weight: bold;
+color: black;
+box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.28);
+-webkit-box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.28);
+-moz-box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.28);
+}
+#classe_filiere:focus,
+#classe_filiere:hover{
+    border-color: var(--orange); /* Couleur de la bordure lorsqu'il est en état focus ou hover */
+    box-shadow: 0 0 0 0.2rem var(--orange); 
+}
+#classe_professeurs,#classe_modules option{
+    padding: 8px;
+    font-style: 12px;
+    color: black;
+    font-weight: bold;
+    background-color: white;
+    /* opacity: 0.5; */
+    }
+#classe_professeurs:focus,
+#classe_professeurs:hover{
+    border-color: var(--orange); /* Couleur de la bordure lorsqu'il est en état focus ou hover */
+    box-shadow: 0 0 0 0.2rem var(--orange);
+    }
+
+#classe_modules:focus,
+#classe_modules:hover{
+    border-color: var(--orange);
+    box-shadow: 0 0 0 0.2rem var(--orange); 
+    }
+label{
+    color: black;
+    font-weight: bold;
+}

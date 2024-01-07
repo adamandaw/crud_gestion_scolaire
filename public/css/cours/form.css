@@ -1,0 +1,62 @@
+:root {
+    --couleurBrun: #351f16;
+    --orange:#f58612;
+  }
+  label{
+    color: black;
+    font-weight: smaller;
+  }
+
+  .header-form{
+    background-color: var(--couleurBrun);
+    padding: 10px;
+  }
+  .header-form h5{
+    color: white;
+  }
+  .form-bg{
+    box-shadow: -3px 10px 12px -10px rgba(0,0,0,0.75);
+-webkit-box-shadow: -3px 10px 12px -10px rgba(0,0,0,0.75);
+-moz-box-shadow: -3px 10px 12px -10px rgba(0,0,0,0.75);
+    background-color:white;
+    padding: 20px;
+  }
+  
+  .form-control:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  #cours_niveau{
+    display: flex;
+    grid-gap: 16px;
+  }
+  #cours_classes,
+  #cours_module,
+  #cours_professeur,
+  #cours_semestre,option{
+    width: 300px;
+    font-weight: bold;
+    background-color: #ecf0f1;
+    color: black;
+  }
+
+  .fond-btn{
+    margin-top: 6px;
+    /* padding: 2px; */
+    font-weight: bold;
+    text-transform: capitalize;
+    margin-right: 6px;
+    background-color: var(--orange);
+    color: white;
+    width: 200px;
+    text-transform: uppercase;
+}
+.fond-btn:hover{
+    margin-top: 6px;
+    /* padding: 2px; */
+    font-weight: bold;
+    border: 2px solid var(--orange);
+    background-color: white;
+    color: black;
+}

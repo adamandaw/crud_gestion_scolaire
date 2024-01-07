@@ -1,0 +1,21 @@
+
+:root {
+    --couleurBrun: #351f16;
+    --orange:#f58612;
+  }
+
+table th{
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+    background-color: var(--orange);
+}
+tbody td{
+    font-weight: bold;
+    padding: 10px;
+    background-color: white;
+    text-align: center;
+}
+tbody tr td{
+    border: 1.2px solid black;
+}

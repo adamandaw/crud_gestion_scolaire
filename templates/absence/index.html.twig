@@ -1,0 +1,145 @@
+{% extends 'base.etudiant.professeur.html.twig' %}
+
+{% block title %}Marquer les Absences{% endblock %}
+{% block css %}
+        <link rel="stylesheet" href=" {{ asset('css/absent/style.css') }}">
+        <link rel="stylesheet" href=" {{ asset('css/groups/table.css') }}">
+        <link rel="stylesheet" href=" {{ asset('css/groups/pagination-veticale.css') }}">
+
+{% endblock %}
+{% block content_page %}
+
+<div class="container">
+<h1 class=" font-weight-bold mt-5">Listes des etudiants</h1>
+<div class="d-flex justify-content-between">
+    <div class="zone_form  d-none">
+        <form action="{{ path('app_absence_new', {'id':planningId}) }}" method="POST">
+            <div class="form-group gap-4 d-flex">
+                <select class="form-control" name="etudiant" id="etudiant">
+                    <option>choisir (absents).</option>
+
+                {% for etudiant in etudiants %}
+                    <option value="{{ etudiant.etudiant.id }}">{{ etudiant.etudiant.nomComplet }}</option>
+                {% endfor %}
+                </select>
+                 <button type="submit" class="ajouter">Ajouter</button>
+            </div>
+           
+        </form>
+    </div>
+
+    
+</div>
+<div class="zone_btn d-flex justify-content-end">
+        <button type="button" class="btn_make_absences"> <box-icon name='edit' color='#ffffff' ></box-icon> Marquer  les Absences</button>
+    </div>
+
+
+
+
+<div class="d-flex justify-content-between">
+
+{# <div class="d-flex flex-column"> #}
+{{knp_pagination_render(etudiants) }}
+{# </div> #}
+    <div class=" col-7">
+        <table class="">
+            <thead>
+                <tr>
+                    <th>Nom Complet</th>
+                    <th>email</th>
+                    <th>Classe</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for etudiant in etudiants %}
+                <tr class="">
+                    <td class="name">{{ etudiant.etudiant.nomComplet }}</td>
+                    <td class="name">{{ etudiant.etudiant.email }}</td>
+                    <td>{{ etudiant.classe.libelle }}</td>     
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">quelque chose s'est mal passé.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+    {# card  #}
+      <div id="lecard">
+        <div class="card border-light mt-4  col-3" style="max-width: 20rem;">
+             <div class="d-flex justify-content-center flex-column align-items-center">
+                {% if app.session.has('etudiant_absent') %}
+                                    {% set etudiant_absent = app.session.get('etudiant_absent') %}
+                                    <span>Listes des absent (s)</span>
+                                    <table class="">
+                                    <tbody>
+                                    {% for absenceEtu in etudiant_absent %}
+                                                <tr class="">
+                                                    <td class="name">{{absenceEtu }}</td>
+                                                    <td class="">
+                                                        <a  class="btn  btn-sm " href="#"> <box-icon name='message-square-x' type='solid' color='#f30707' ></box-icon></a>
+                                                    </td>
+                                                </tr>
+                                                {# <input type="text" disabled="true" value="{{absenceEtu }}" name="etu"> #}
+                                            {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        {# {% set _ = app.session.remove('crud_success') %} #}
+                                        <form action="{{ path('app_absence_new', {'id':planningId}) }}" method="POST">
+                                            <button type="submit" class="btn btn-primary" name="publier">Publier les absences</button>
+                                        </form>
+                                        {% else %}
+                                            <div class="d-flex flex-column align-items-center my-3 gap-4 mt-5">
+                                                    <box-icon name='loader-alt' animation='spin' color='#f58612' id="empty_absence"></box-icon>
+                                            {# <img src="{{asset('images/empty_set.jpg')}} " id="empty_absence"> #}
+                                            <span id="msg">Aucune absence n'a été appliquer pour le moment.</span>
+                                            </div>
+                                {% endif %} 
+            </div>
+            </div>
+      </div>
+      {# fin du card #}
+
+</div>
+
+
+    
+
+{% endblock %}
+{% block javascripts %}
+
+    <script src="{{ asset('js/absences/script.js') }}"></script>
+    <script src="{{ asset('js/groups/pagination.js') }}"></script>
+
+{# <script>
+    const absentLinks = document.querySelectorAll('.absent-link');
+
+    absentLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const studentId = link.dataset.id;
+
+            // Envoyer l'ID de l'étudiant au contrôleur en PHP
+            fetch(`http://localhost:8000/absences/cours/76/new/${studentId}`)
+                .then(response => {
+                    if (response.ok) {
+                        // Gérer la réponse du contrôleur en cas de succès
+                        console.log('Requête envoyée avec succès !');
+                        console.log(studentId);
+                        return response.text();
+
+                    } else {
+                        throw new Error('Erreur lors de l\'envoi de la requête');
+                    }
+                })
+                .catch(error => {
+                    // Gérer les erreurs
+                    console.error(error);
+                });
+        });
+    });
+</script> #}
+{% endblock %}

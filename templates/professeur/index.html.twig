@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes Professeurs{% endblock %}
+
+{% block nav %}
+{{parent()}}
+
+{% endblock %}
+
+
+{% block content %}
+{{parent()}}
+<table class="table table-hover mt-5 col-4">
+    <thead>
+      <tr>
+        <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Id</font></font></th>
+        <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nom Complet</font></font></th>
+        <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Email</font></font></th>
+        <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Grade</font></font></th>
+      </tr>
+    </thead>
+    <tbody>
+     {% for professeur in profs %}
+     <tr class="table-secondary">
+        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ professeur.id }}</font></font></td>
+        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ professeur.nomComplet }}</font></font></td>
+        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ professeur.email }}</font></font></td>
+        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ professeur.grade }}</font></font></td>
+        
+      </tr>
+     {% endfor %}
+  
+      
+    </tbody>
+  </table>
+{% endblock %}
+
+  {% block javascripts %}
+    <script src="{{ asset('js/professeur/script.js') }}"></script>
+    {% endblock %}

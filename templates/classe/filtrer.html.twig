@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classes{% endblock %}
+
+{% block content %}
+{{parent()}}
+<div class="container d-flex justify-content-center" id="content">
+<div class="zone-de-filtre">
+                            <div class="form-inline">
+                                    {{form_start(form)}}
+                                    <div class="form-group">
+                                        {{form_widget(form.niveau)}}
+                                        
+                                    </div>
+                                    <div class="form-group">
+                                        {{form_widget(form.filiere)}}
+                                    </div>
+                                {{form_end(form)}}
+
+                            </div>
+                             
+                               
+                            </div>
+<table class="table table-hover mt-5 col-8">
+    <thead>
+      <tr>
+        <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Id</font></font></th>
+        <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nom de la classe</font></font></th>
+        <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Action</font></font></th>
+      </tr>
+    </thead>
+    <tbody>
+     {% for cl in classes %}
+     <tr class="table-secondary">
+        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ cl.id }}</font></font></td>
+        <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ cl.libelle }}</font></font></td>
+        <td>
+          <a  class="btn btn-warning btn-sm " href="{{path('app_classe_save',{id:cl.id} )}}">Modifier</a>
+        </td>
+        <td>
+          <a  class="btn btn-danger btn-sm " href="{{path('app_classe_save',{id:cl.id} )}}">Archiver</a>
+        </td>
+        
+      </tr>
+     {% endfor %}
+
+    </tbody>
+  </table>
+   </div>
+{% endblock %}

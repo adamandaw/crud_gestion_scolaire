@@ -1,0 +1,90 @@
+:root {
+    --couleurBrun: #351f16;
+    --orange:#f58612;
+  }
+#new_cuurs{
+    text-decoration: none;
+    color: var(--couleurBrun) ;
+    background-color: white;
+    padding:10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 15px 4px 16px 0px rgba(0,0,0,0.25);
+-webkit-box-shadow: 15px 4px 16px 0px rgba(0,0,0,0.25);
+-moz-box-shadow: 15px 4px 16px 0px rgba(0,0,0,0.25);
+}
+#new_planning{
+    text-decoration: none;
+    color: white ;
+    background-color: var(--orange);
+    padding:10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 15px 4px 16px 0px rgba(0,0,0,0.25);
+-webkit-box-shadow: 15px 4px 16px 0px rgba(0,0,0,0.25);
+-moz-box-shadow: 15px 4px 16px 0px rgba(0,0,0,0.25);
+}
+ 
+
+h5{
+  color: black;
+  font-weight: bold;
+  text-align: end;
+  margin-right: 120px;
+}
+.fond_btn{
+  border: 2px solid var(--couleurBrun);
+  border-top-left-radius: 10px;
+  font-weight: smaller;
+  background-color: var(--couleurBrun);
+  color: var(--orange);
+  padding: 8px;
+  text-decoration: underline;
+}
+
+.opt_btn{
+  background-color: var(--couleurBrun);
+  color: white;
+}
+
+#empty_set{
+  margin-top: 10px;
+  width: 55px;
+  /* height: 20vh; */
+  text-align: center;
+}
+#info{
+  text-align: center;
+  padding-top: 3px;
+  color: black;
+}
+#filter_cours_by_professeur_professeur,
+#filter_cours_by_semestre_semestre{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+}
+/* {
+  padding: 15px;
+} */
+.submit{
+    color: #f58612;
+    text-decoration: underline;
+}
+
+.fade-right-section {
+    animation: fadeRightAnimation 0.5s;
+  }
+  
+  @keyframes fadeRightAnimation {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }

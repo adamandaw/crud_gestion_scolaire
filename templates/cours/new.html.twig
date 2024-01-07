@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Cours{% endblock %}
+ {% block stylesheets %}
+   
+        {{parent()}}
+  
+              <link rel="stylesheet" href=" {{ asset('css/cours/form.css') }}">  
+        
+        {% endblock %}
+{% block content %}
+{{parent()}}
+
+    {{ include('cours/_form.html.twig') }}
+
+    <a href="{{ path('app_cours_index') }}">basculer sur la liste</a>
+{% endblock %}
+{% block javascripts %}
+<script  src="{{ asset('js/cours/script.js') }}"></script>
+
+{% endblock %}

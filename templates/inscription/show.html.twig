@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails étudiant{% endblock %}
+{% block stylesheets  %}
+{{parent()}}
+ <link rel="stylesheet" href=" {{ asset('css/inscription/style.css') }}">
+{% endblock %}
+{% block content %}
+{{parent()}}
+
+<div class="container mt-5">
+    <div class="card  d-flex justify-content-between ">
+    <div class="card-body">
+    {% if inscriptions|length > 0 %}
+        <h4 class="card-title">
+        
+                {{ inscriptions|first.etudiant.nomComplet }}
+        
+        </h4>
+        <h6 class="card-subtitle mb-2 text-muted">Né (e) le {{ inscriptions|first.etudiant.dateDeNaissanceAt|date('d-m-Y') }} </h6>
+        {% else %}
+                erreurs
+            {% endif %}
+        <p class="card-text">Listes de ses réInscriptions</p>
+         {# {% if absences is not empty %}
+                {% for absence in absences %} #}
+                   <p>
+    {{ absences is not empty ? absences|length ~ ' absence(s) à ce jour.' : 'Aucune absence constatée.' }}
+</p>
+                {# {% endfor %}
+            {% endif %} #}
+            <table class="" id="table">
+                        <thead>
+                        <tr>
+                            {# <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Id</font></font></th> #}
+                            <th scope="col" >id</th>
+                            <th scope="col" class="thCol">date d'Inscription</th>
+                            <th scope="col" class="thCol">etat</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table_body">
+                                {% for item in inscriptions %}
+                                    <tr class="etudiant-inscrit ">
+                                        <td class="name">{{ item.id }}</td>
+                                        <td>
+                                        {% if item.isArchived %}S'est réInscrit le  {{ item.createAt|date('d-m-Y') }} en {{ item.classe.libelle }}
+                                        pour l'année scolaire : {{ item.anneeScolaire.libelle }}
+                                        {% else %}S'est Inscrit le {{ item.createAt|date('d-m-Y') }} en {{ item.classe.libelle }}  pour l'année scolaire : {{ item.anneeScolaire.libelle }}{% endif %}
+                                    </td>
+                                        <td class="matricule">{% if item.isArchived %}(atteint){% else %}Inscription <br>en cours{% endif %}</td>
+                                    </tr>
+                                {% endfor %}
+                            
+                    </tbody>
+                </table>
+        <a href="{{ path('app_inscription') }}" class="card-link">Retour sur la liste</a>
+        {# <a href="#" class="card-link">Another link</a> #}
+    </div>
+    </div>
+    {#  #}
+
+ 
+</div>
+   
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {# {{parent()}} #}
+    <script src="{{ asset('build/inscription.js') }}" defer></script>
+    <script >
+    const atteint = document.querySelector('#atteint');
+    const enCours = document.querySelector('#en-cours');
+
+    </script>
+    {% endblock %}

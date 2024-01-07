@@ -1,0 +1,243 @@
+{# {% extends is_granted('ROLE_PROFESSEUR') ? 'base.etudiant.professeur.html..html.twig' : 'base.html.twig' %} #}
+{% extends  'base.etudiant.professeur.html.twig' %}
+{% block title %}Accueil{% endblock %}
+
+ {% block stylesheets %}
+   
+        {{parent()}}
+  
+              <link rel="stylesheet" href=" {{ asset('css/home/style.css') }}">
+              <link rel="stylesheet" href=" {{ asset('css/home/others.style.css') }}">
+       
+        {# https://bootswatch.com/zephyr/ #}
+        
+        {% endblock %}
+
+{% block nav %}
+{{parent()}}
+
+{% endblock %}
+
+
+{% block content %}
+{{parent()}}
+
+                
+                
+
+
+{% endblock %}
+
+{% block content_page %}
+    {# {{parent()}} #}
+<div class="container mt-3">
+        <h1> {{is_granted('ROLE_PROFESSEUR') ? "Liste de mes cours" : "Mon planning"}} </h1>
+        {% if is_granted('ROLE_PROFESSEUR') %}
+        <div class="filterZone d-flex gap-4">
+                {#  #}
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                    <button type="button" class="buttons">Classe</button>
+                <div class="btn-group subMenu" role="group">
+                        <button id="btnGroupDrop4" type="button" class="btn btn opt_btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu py-2" aria-labelledby="btnGroupDrop4" style="width: 20rem;">
+                                        {{form_start(formClasseSelect)}}
+                                                {# {{form_widget(formClasseSelect.niveau)}}  #}
+                                                {{form_widget(formClasseSelect.classe)}} 
+                                            {{form_end(formClasseSelect)}}
+                                            
+                        </div>
+                </div>
+            </div>
+                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                    <button type="button" class="buttons">Date</button>
+                    <div class="btn-group subMenu" role="group">
+                            <button id="btnGroupDrop4" type="button" class="btn btn opt_btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop4" style="">
+                                        {# {{form_start(formSemestre)}}
+                                                    {{form_widget(formSemestre.semestre)}} 
+                                                {{form_end(formSemestre)}} #}
+    
+                                                <form action="{{ path('app_home_other_users')}}" method="POST">
+                                                    <div class="form-group">
+                                                        <select class="form-control" name="date" id="date">
+                                                            
+                                                        </select>
+                                                    </div>
+                                                    <button type="submit" class="searchBtn " name="findByDate">Rechercher</button>
+                                                </form>                                   
+                            </div>
+                    </div>
+                </div>
+        </div>
+        {% endif %}
+                {#  #}
+                {# filtr etudiant #}
+
+                {% if is_granted('ROLE_ETUDIANT') %}
+                    <div class="etudiant-filtre gap-4">
+                             <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                    <button type="button" class="buttons">Module</button>
+                                <div class="btn-group subMenu" role="group">
+                                        <button id="btnGroupDrop4" type="button" class="btn btn opt_btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                        <div class="dropdown-menu py-2" aria-labelledby="btnGroupDrop4" style="width: 20rem;">
+                                                         {{ form_start(formModulesSelect) }}
+                                                            {{ form_widget(formModulesSelect) }}
+                                                            {# <button class="btn">{{ button_label|default('Save') }}</button> #}
+                                                        {{ form_end(formModulesSelect) }}
+                                        </div>
+                                </div>
+                            </div>
+                                       
+                    </div>
+                {% endif %}
+                
+                {# fin filtr etudiant #}
+    {# bouton mode #}
+       <div class="gap-4 mr-4 d-flex justify-content-end">
+            <button  type="button" class="btn btn" id="list_mode">
+                <box-icon name='list-ul' color='#080707' ></box-icon>  </button>
+            <button  type="button" class="btn btn" id="calendar_mode">
+            <box-icon name='calendar' color='#080707' ></box-icon>
+            </button>
+        </div>
+     {# fin  bouton mode #}
+
+      <div class="cours_list d-flex justify-content-center">
+            {% if currentPlanning|length > 0 %}
+            <table class="list_planning">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Module</th>
+                        <th>date </th>
+                        <th>heure de debut</th>
+                        <th>heure de fin</th>
+                        {# <th>etat</th> #}
+                        {# <th>actions</th> #}
+                        <th>
+                            {% if is_granted('ROLE_PROFESSEUR') %}
+                                classes
+                            {% elseif is_granted('ROLE_ETUDIANT') %}
+                                professeur
+                            {% endif %}
+                        </th>
+                         {% if is_granted('ROLE_PROFESSEUR') %}
+                            <th>Absences</th>
+                         {% endif %}
+                    </tr>
+                </thead>
+                            <tbody>    
+{% if filterClassePlanning is empty %}
+    {% if currentPlanning is not empty %}
+        {% for planning in currentPlanning %}
+            {% for item in planning %}
+                <tr class="currentPlanning {{pl|length > 0 ? 'd-none' : '' }}">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.cours.module.libelle }} </td>
+                    <td>{{ item.createAt.format('d-m-Y') }}</td>
+                    <td>{{ item.beginAt.format('H:i') }}</td>
+                    <td>{{ item.endAt.format('H:i') }}</td>
+                    {# <td>{{ item.isArchived ? 'Yes' : 'No' }}</td> #}
+                    {# <td>State: {{ item.state ? 'Yes' : 'No' }}</td> #}
+                   
+                     {% if is_granted('ROLE_PROFESSEUR') %}
+                                <td>
+                                    {% if planning|length > 0 %}
+                                        {% for classeLibelle in item.cours.classes %}
+                                            {{ classeLibelle.libelle }}
+                                        {% endfor %}
+                                    {% else %}
+
+                                    {% endif %}
+                                </td>
+                            {% elseif is_granted('ROLE_ETUDIANT') %}
+                                <td> {{ item.cours.professeur.nomComplet }}</td>
+                            {% endif %}
+                            {% if is_granted('ROLE_PROFESSEUR') %}
+                                        <td>
+                                <a class="btn btn-outline-info btn-sm" href="{{ path('app_absence_new', { id: item.id }) }}">Marquer</a>
+                            </td>
+                        {% endif %}
+                   
+                    
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="7">planning vide.</td>
+        </tr>
+    {% endif %}
+{% else %}
+    {% if filterClassePlanning|length > 0 %}
+        {% for planningToClasse in filterClassePlanning %}
+            {% for item in planningToClasse %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.cours.module.libelle }}</td>
+                    <td>{{ item.createAt.format('d-m-Y') }}</td>
+                    <td>{{ item.beginAt.format('H:i') }}</td>
+                    <td>{{ item.endAt.format('H:i') }}</td>
+                    {# <td>{{ item.isArchived ? 'Yes' : 'No' }}</td> #}
+                    {# <td>State: {{ item.state ? 'Yes' : 'No' }}</td> #}
+                    <td>
+                                        {% for classeLibelle in item.cours.classes %}
+                                            {{ classeLibelle.libelle }}
+                                        {% endfor %}
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-info btn-sm" href="{{ path('app_absence_new', { id: item.id }) }}">Marquer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="7">aucun cours pour cette classe.</td>
+        </tr>
+    {% endif %}
+{% endif %}  
+<div class="etudiant-filtre-by-module {{ pl|length > 0 ? '' : 'd-none' }}">
+    {# {% if pl is  defined and is empty %}
+        <tr>
+            <td colspan="7">aucun cours pour ce module.</td>
+        </tr>
+    {% else %} #}
+        {% for planningEtudiant in pl %}
+            <tr>
+                <td>{{ planningEtudiant.id }}</td>
+                <td>{{ planningEtudiant.cours.module.libelle }}</td>
+                <td>{{ planningEtudiant.createAt.format('d-m-Y') }}</td>
+                <td>{{ planningEtudiant.beginAt.format('H:i') }}</td>
+                <td>{{ planningEtudiant.endAt.format('H:i') }}</td>
+                <td>{{ planningEtudiant.cours.professeur.nomComplet }}</td>
+            </tr>
+        {% endfor %}
+    {# {% endif %} #}
+</div>
+                                                             
+                    
+                            </tbody>
+            </table>
+                    {% endif %}        
+                         <div id="calendar"></div> 
+      </div>
+    
+</div>
+       
+                    
+                           
+                            
+                            
+                        
+              
+                        
+             
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/home/script.others.js') }}" defer></script>
+    {% endblock %}
+
+  

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle Plannification{% endblock %}
+{% block stylesheets %}
+{{parent()}}
+<link rel="stylesheet" href=" {{ asset('css/planning/style.css') }}">
+{% endblock %}
+{% block content %}
+    
+    {% if app.session.has('hour_error') %}
+    {% set hour_error = app.session.get('hour_error') %}
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>{{ hour_error }}</strong>
+    </div>
+   {% set _ = app.session.remove('hour_error') %}
+{% endif %} 
+
+    {{ include('planning/_form.html.twig') }}
+
+    {# <a href="{{ path('app_planning_index') }}">back to list</a> #}
+{% endblock %}

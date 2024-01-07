@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins:ital,wght@1,200;1,400&family=Roboto&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+}
+:root {
+    --couleurBrun: #351f16;
+    --orange:#f58612;
+  }
+  .sidebar {
+    height: 100vh;
+}
+  .fond_sidebar{
+    background-color: var(--couleurBrun);
+    }
+
+  #image{
+    width: 90px;
+    height: 90px;
+    /* background-color: aqua;
+    padding: 7px; */
+    /* margin-top: 20px; */
+}
+#navbarNav{
+  /* height: 7vh; */
+  width: 100%;
+}
+.highlight {
+  background-color: yellow;
+  color: white;
+}
+.btn-logout {
+  background-color: var(--orange);
+  padding: 15px;
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+.btn-logout:hover {
+  color: white;
+  text-decoration: none;
+  background: #ff8500;
+  background: linear-gradient(133deg,#ff8500 0%, #ff8500 20%);
+  background: -webkit-linear-gradient(133deg,#ff8500 0%, #ff8500 20%);
+  background: -moz-linear-gradient(133deg,#ff8500 0%, #ff8500 20%);
+}

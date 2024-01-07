@@ -1,0 +1,231 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cours index{% endblock %}
+{% block stylesheets  %}
+{{parent()}}
+ <link rel="stylesheet" href=" {{ asset('css/cours/style.css') }}">
+{% endblock %}
+
+
+{% block content %}
+{{parent()}}
+<div class="container col-10">
+    <div class="entete d-flex justify-content-between my-5 align-item-center">
+        <h3 class="font-weight-bold">Listes des Cours</h3>
+        {# <div class="lien">
+            <a href="{{ path('app_cours_new') }}" id="new_cuurs">Nouveau</a>
+        </div>  #}
+         {% if app.session.has('crud_planning_success') %}
+                            {% set crud_success = app.session.get('crud_planning_success') %}
+                                <div class="card text-dark border-light mb-3" style="max-width: 20rem;" id="zoneDuCrudSuscces">
+                                        <div class=" crud_succes_header">
+                                            <box-icon name='comment-check'  color='#f58612' id="logo_crud_succes"></box-icon>
+                                        </div>
+                                            <div class="card-body d-flex flex-column justify-content-center align-items-center">                          
+                                                    {# <img src="{{asset('images/crud_success.jpg')}} " id="crud_success"> #}
+                                                        <p class="card-text font-weight-bold" id="msg_crud"> {{crud_success}} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% set _ = app.session.remove('crud_planning_success') %}
+                        {% endif %} 
+        
+        
+    </div>
+
+  <hr style="border-top: 1px solid black;">
+
+<div class="zone_filter">
+    <h5>Options de filtres</h5>
+    <section id="mainn d-flex" class="d-flex justify-content-end gap-4">
+    {#  #}
+    {% set world ="par " %}
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <button type="button" class="fond_btn">{{world}}Professeurs</button>
+                <div class="btn-group" role="group">
+                        <button id="btnGroupDrop4" type="button" class="btn btn opt_btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop4" style="width: 20rem;">
+                                        {{form_start(formProfesseur)}}
+                                                {{form_widget(formProfesseur.professeur)}} 
+                                            {{form_end(formProfesseur)}}
+                        </div>
+                </div>
+            </div>
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <button type="button" class="fond_btn">{{world}}Semestre</button>
+                <div class="btn-group" role="group">
+                        <button id="btnGroupDrop4" type="button" class="btn btn opt_btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop4" style="">
+                                    {{form_start(formSemestre)}}
+                                                {{form_widget(formSemestre.semestre)}} 
+                                            {{form_end(formSemestre)}}
+                        </div>
+                </div>
+            </div>
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <button type="button" class="fond_btn">{{world}}Classes</button>
+                <div class="btn-group" role="group">
+                        <button id="btnGroupDrop4" type="button" class="btn btn opt_btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop4" style="">
+                                         {{form_start(formClasse)}}
+                                                {{form_widget(formClasse.classe)}} 
+                                            {{form_end(formClasse)}}
+                        </div>
+                </div>
+            </div>
+    {#  #}
+    </section>
+</div>
+<div class="zone_content my-5  d-flex justify-content-between gap-4">
+{# ----------DEBUT #}
+
+
+<div class="card border-light  mb-3 col-3" style="max-width: 20rem;">
+  <div class="d-flex justify-content-center flex-column align-items-center">
+        {% if argsCommun is empty %}
+             <img src="{{asset('images/empty_set.jpg')}} " id="empty_set">
+            <span id="info">aucun filtre n'a été appliquer.</span>
+            {% else %}
+            <span id="info">Listes des cours</span>
+                 {% for cour in argsCommun %}
+                    {% for item in cour %}
+                             {# a revoir pour changer la maniere dont il saffiche #}
+                            <ul class="d-flex flex-column justify-content-between gap-2">
+                                <li > <span class="span-row"  data-id="{{ item.id }}">  {{ item.module.libelle }} </span></li>
+                            </ul>                      
+                    {% endfor %}     
+                               
+                 {% endfor %}
+                    {# {% else %} #}
+                        {# {% for otherCour in argsCommun %}
+                             <ul class="d-flex flex-column justify-content-between gap-2">
+                                <li> <span class="">  {{ otherCour.module.libelle }} </span></li>
+                            </ul>  
+                        {% endfor %} #}
+                    
+                        
+        {% endif %}
+
+        
+        
+             
+  </div>
+
+</div>
+{# ---------------------------------------- LISTE PRINCIPAL #}
+
+ <div class="tableau_content col-9">
+     <table class="table table-hover">
+        <tbody>
+        {% for cour in cours %}
+           <tr class="table-row" data-id="{{ cour.id }}">
+                <td class="font-weight-bold">{{ cour.module.libelle }} </td>
+                {# <br><span class="countSessionTrue">nombre de planification effectuer</span> #}
+                <td >
+                    <a  class="d-none link" href="{{ path('app_cours_edit', {'id': cour.id}) }}">modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucun cours pour le moment </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+ {{knp_pagination_render(cours) }}
+{# -------------FILTRE  #}
+{# <section class=" {{selfCourses|length > 0 ? 'fade-right-section' : 'd-none' }} ">
+ <h3 class="font-weight-bold">SelfCourses qui n'ont pas encores été effectuer</h3>
+     <table class="table table-hover">
+        <tbody>
+        {% for cour in selfCourses %}
+           <tr class="table-row" data-id="{{ cour.id }}">
+                <td class="font-weight-bold">{{ cour.module.libelle }}</td>
+                <td >
+                    <a  class="d-none link" href="{{ path('app_cours_edit', {'id': cour.id}) }}">modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Ce professeur n'a aucun cours pour le moment.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section> #}
+{# <section class=" {{semestres|length > 0 ? 'fade-right-section' : 'd-none' }} ">
+ <h3 class="font-weight-bold">Les cours du semestre  qui n'ont pas encores été effectuer</h3>
+     <table class="table table-hover">
+        <tbody>
+        {% for cour in semestres %}
+           <tr class="table-row" data-id="{{ cour.id }}">
+                <td class="font-weight-bold">{{ cour.module.libelle }}</td>
+                <td >
+                    <a  class="d-none link" href="{{ path('app_cours_edit', {'id': cour.id}) }}">modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">aucun cours prévue dans ce semestre.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</section> #}
+
+</div>
+    
+
+   
+
+    
+{% endblock %}
+{% block javascripts %}
+<script  src="{{ asset('js/cours/script.js') }}"></script>
+<script>
+     // Récupère toutes les lignes du tableau
+  const tableRows = document.querySelectorAll('.table-row');
+  const spanRows = document.querySelectorAll('.span-row');
+  const modif = document.querySelectorAll('.modif');
+
+  // Parcourt chaque ligne et ajoute un gestionnaire d'événements de clic
+  tableRows.forEach(row => {
+    const id = row.dataset.id; // Récupère l'ID à partir de l'attribut "data-id" de la ligne
+     const linkElements = row.querySelectorAll('.link');
+    // Ajoute le lien sur toute la ligne
+    row.addEventListener('click', () => {
+      window.location.href = "{{ path('app_cours_show', {'id': '__id__'}) }}".replace('__id__', id);
+    });
+    row.style.cursor ="grab";
+    row.addEventListener('mouseenter', () => {
+      linkElements.forEach(link => {
+        link.classList.remove('d-none'); // Supprime la classe "d-none" pour afficher le lien
+      });
+    });
+     row.addEventListener('mouseleave', () => {
+      linkElements.forEach(link => {
+        link.classList.add('d-none'); // Ajoute la classe "d-none" pour masquer le lien
+      });
+    });
+    
+  });
+  spanRows.forEach(row => {
+    const id = row.dataset.id; // Récupère l'ID à partir de l'attribut "data-id" de la ligne
+     const linkElements = row.querySelectorAll('.link');
+    // Ajoute le lien sur toute la ligne
+    row.addEventListener('click', () => {
+      window.location.href = "{{ path('app_cours_show', {'id': '__id__'}) }}".replace('__id__', id);
+    })
+     row.style.cursor ="pointer";
+     
+      row.addEventListener('mouseenter', () => {
+      row.style.textDecoration ="underline";
+    });
+     row.addEventListener('mouseleave', () => {
+      row.style.textDecoration ="none";
+    });
+    })
+</script>
+{% endblock %}

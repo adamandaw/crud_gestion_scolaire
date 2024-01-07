@@ -1,0 +1,83 @@
+:root {
+    --couleurBrun: #351f16;
+    --orange:#f58612;
+  }
+
+.buttons{
+background-color: #ecf0f1;
+border: none;
+border-top-left-radius: 8px;
+border-bottom-left-radius: 8px;
+padding: 10px;
+/* border-radius: 8px; */
+width: 100px;
+font-weight: bold;
+/* margin-right: 6px; */
+}
+.subMenu{
+    /* border: 3px solid black; */
+    border-radius: 0;
+    background-color: #ecf0f1;
+
+}
+.filterZone{
+    padding: 4px;
+}
+#filter_cours_by_classe_classe , option{
+    font-weight: bold;
+    background-color: #ecf0f1;
+    color: black;
+}
+#filter_cours_by_module_modules , option{
+    font-weight: bold;
+    background-color: #ecf0f1;
+    color: black;
+}
+/* #filter_cours_by_classe_save{
+   
+}
+#filter_cours_by_classe_save:hover{
+
+} */
+.fond{
+    margin-top: 6px;
+    /* padding: 2px; */
+    font-weight: bold;
+    text-transform: capitalize;
+    margin-right: 6px;
+    background-color: black;
+    color: white;
+}
+.fond:hover{
+    margin-top: 6px;
+    /* padding: 2px; */
+    font-weight: bold;
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+}
+#date,option{
+    width: 20rem;
+    font-weight: bold;
+    background-color: #ecf0f1;
+    color: black;
+    letter-spacing: 2px;
+}
+.searchBtn{
+    margin-top: 6px;
+    padding: 5px;
+    border-radius: 8px;
+    font-weight: bold;
+border: none;
+    margin-right: 6px;
+    background-color: black;
+    color: white;
+}
+.searchBtn:hover{
+    margin-top: 6px;
+    font-weight: bold;
+    /* padding: 2px; */
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+}

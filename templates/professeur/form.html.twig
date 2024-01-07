@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Professeur{% endblock %}
+{% block stylesheets %}
+{{parent()}}    
+<link rel="stylesheet" href=" {{ asset('css/professeur/form.css') }}">
+{% endblock %}
+
+{% block content %}
+{{parent()}}
+<!-- JQUERY STEP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
+
+{% if app.request.method == 'POST' %}
+            {% for message in app.flashes('crud_success') %}
+                <div class="alert alert-dismissible alert-success">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>{{ message }}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
+   
+<div class="container mt-5 d-flex  justify-content-center">
+<div class="forme">
+
+<div class="surface_gauche">
+       <!-- SECTION 1 -->
+            <h4 id="title">nouveau Professeur</h4>
+<img src=" {{asset('images/professeur/professeur.svg')}}" id="image_form_prof" alt="">
+</div>
+{{ form_start(form) }}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                                        {{ form_label(form.nomComplet) }}
+                                            {{form_widget(form.nomComplet)}}
+                        </div>
+                        <div class="form-group col-md-6">
+                        {{ form_label(form.email) }}
+                                            {{form_widget(form.email)}}
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                                            {{ form_label(form.grade) }}
+                                            {{form_widget(form.grade)}}
+                        </div>
+                        <div class="form-group col-md-6">
+                        {{ form_label(form.modules) }}
+                                            {{form_widget(form.modules)}}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.classes) }}
+                                            {{form_widget(form.classes)}}
+                    </div>
+ {{ form_end(form) }}
+</div>
+</div>
+
+                  
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/professeur/script.js') }}"></script>
+
+{% endblock %}

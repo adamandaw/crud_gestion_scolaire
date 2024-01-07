@@ -1,0 +1,181 @@
+
+:root {
+    --couleurBrun: #351f16;
+    --orange:#f58612;
+  }
+  #h4{
+    text-decoration:underline;
+    font-weight: bold;  
+ 
+  }
+ label{
+    color: white;
+    font-weight: bold;
+  }
+#research_inscrits_classe_classes{
+    width: 250px;
+}
+#research_inscrits_classe_save{
+    background-color: var(--orange);
+    border: none;
+}
+#filtreClasseInscrit{
+    background-color: var(--couleurBrun);
+    color: white;
+    box-shadow: 1px 4px 27px 0px rgba(0,0,0,0.07);
+-webkit-box-shadow: 1px 4px 27px 0px rgba(0,0,0,0.07);
+-moz-box-shadow: 1px 4px 27px 0px rgba(0,0,0,0.07);
+}
+/*  */
+table th{
+    font-weight: bold;
+    text-align: center; 
+    padding: 10px;
+    background-color: var(--orange);
+}
+tbody td{
+    font-weight: bold;
+    font-size:smaller;
+    background-color: white;
+    /* margin-top: 8px; */
+    padding: 10px;
+    text-align: center;
+}
+tbody tr td{
+    border: 1px solid black;
+}
+tbody tr td:hover{
+    opacity: 0.5;
+}
+.name{
+    text-transform: capitalize;
+}
+.matricule{
+    text-transform: lowercase;
+}
+/* #table_body:hover{
+    color: white;
+    
+   
+}
+
+#table_body td:hover{
+    color: white;
+   
+} */
+.yearBody label{
+    color: var(--couleurBrun);
+    font-weight: bold;
+}
+#filter_by_years_save{
+    background-color: var(--orange);
+    border: none;
+}
+/* formulaire */
+
+.form{
+    width: 900px;
+    background-color: var(--couleurBrun);
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    /* border: 1px solid; */
+    border-bottom-left-radius: 20px solid;
+}
+.zone_gauche{
+    width: 390px;
+    display: flex;
+    /* justify-content:flex-start; */
+    align-items: center;
+    /* background-color: grey; */
+    flex-direction: column;
+    
+}
+/* #inscription_etudiant_nomComplet ,
+#inscription_etudiant_dateDeNaissanceAt, 
+#inscription_etudiant_tuteur,#inscription_classe{
+} */
+label ,legend{
+    color: whitesmoke;
+}
+#inscription_etudiant_sexe{
+    justify-content: space-around;
+    align-self: center;
+    display: flex;
+    padding: 7px;
+    /* background-color: #fff; */
+}
+#inscription_etudiant_sexe label{
+    font-weight: bold;
+    /* background-color: #fff; */
+}
+/* .form-check{
+    border-right: 2px solid black;
+} */
+
+#image_etudiant{
+    width: 305px;
+    align-items: start;
+    height: 70vh;
+}
+#inscription_save{
+    background-color: var(--orange);
+    border: none;
+    border-radius: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 425px;
+    height: 8vh;
+}
+#inscription_save:hover{
+    background-color: rgb(221, 221, 221);
+    color: black;
+}
+#title{
+    color: white;
+    text-decoration: underline;
+}
+
+@keyframes vertical-animation {
+    0% {
+      transform: translateY(0);
+    }
+    70% {
+      transform: translateY(-40%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  .animation {
+    animation-name: vertical-animation;
+    animation-duration: 92s;
+    animation-iteration-count:infinite;
+    }
+/* re inscrription */
+#research_matricule_etudiant_matricule{
+    width: 500px;
+    padding: 12px;
+    border: 3px solid var(--couleurBrun);
+    font-weight: bold;
+    color: black;
+}
+#research_matricule_etudiant_submit{
+    background-color: var(--couleurBrun);
+    border: none;
+}
+#p{
+    color: black;
+}
+#info-title{
+    color: red;
+    text-transform: capitalize;
+}
+.bold-animation{
+    font-weight: bold;
+}
+#info-msg{
+
+    color: white;
+}

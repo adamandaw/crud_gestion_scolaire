@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detail de la classe{% endblock %}
+{% block stylesheets %}
+{{parent()}}
+
+{% endblock %}
+
+{% block content %}
+{{parent()}}
+
+
+<div class="detail-main">
+    <h2 id="detail-title">Detail de la classe :{{ classe.libelle}} </h2>
+   
+        
+<div class="d-flex justify-content-around mt-5">
+
+                    {% if libellesDesModules is empty and nomDesEnseignants is empty%}
+                                                        <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Vide Affetez des [module,et profs]  </font></font></p>
+
+                    {% endif %}
+                    
+                    {% if libellesDesModules is empty %}
+                    {% else %}
+                     <div class="card text-dark bg-warning mb-3" style="max-width: 20rem;">
+                <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Les Modules enseigner dans cette classe</font></font></div>
+                <div class="card-body">
+                        {% for item in libellesDesModules %}
+                            <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> {{item}}  </font></font></p>
+
+                        {% endfor %}
+                        {% endif %}
+                </div>
+                </div>
+            
+                {# <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Titre de la fiche d'information</font></font></h4> #}
+                {% if nomDesEnseignants is empty %}
+                                     {# <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> vide  </font></font></p> #}
+
+                {% else %}
+                <div class="card text-white bg-info mb-3" style="max-width: 20rem;">
+                <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Les enseignants de cette classe</font></font></div>
+                <div class="card-body">
+                    
+                
+                    {% for enseignant in nomDesEnseignants %}
+                        <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> {{enseignant}}  </font></font></p>
+
+                    {% endfor %}
+                {% endif %}
+                </div>
+            </div>
+</div>
+           
+
+</div>
+{% endblock %}

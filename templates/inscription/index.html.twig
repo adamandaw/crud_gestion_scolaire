@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listes des inscrits{% endblock %}
+{% block stylesheets  %}
+{{parent()}}
+ <link rel="stylesheet" href=" {{ asset('css/inscription/index.style.css') }}">
+ <link rel="stylesheet" href=" {{ asset('css/inscription/style.css') }}">
+{% endblock %}
+{% block content %}
+{{parent()}}
+<div class="container d-flex justify-content-center flex-column" id="content">
+
+    <div class="card-body">
+        <h4 id="h4">Listes des inscrits {{app.session.get('currentYear').libelle}}</h4>
+    </div>
+     <div class="d-flex justify-content-end mt-3 col-8">
+        <button type="button" id="filtreClasseInscrit" class="btn " >Appliquer un filtre</button>      
+       </div>
+       {# filtre  #}
+       {# <div class="d-flex justify-content-start "> #}
+                    <div class="form-inline formulaire_filtre">
+                        <div class="form-group gap-4">
+                        {{ form_start(formListClasses) }}
+                            {{form_label(formListClasses.classes)}}
+                            {{form_widget(formListClasses.classes)}}
+                            {{form_widget(formListClasses.save)}}
+                        {{ form_end(formListClasses) }}
+                        </div>
+                    </div>
+                            {# {{ form_start(formListClasses) }}
+                                    {{form_widget(formListClasses.classes)}}
+                            {{ form_end(formListClasses) }} #}
+                                {# <select class="form-control" name="" id="">
+                                        <option selected> All</option>
+                                        {% for classe in classes %}
+                                                    <option value="{{classe.id}} "> {{classe.libelle}} </option>
+                                        {% endfor %}
+                                </select> #}
+                      
+      
+        
+    <div class=" d-flex justify-content-between">
+             <table class="  mt-5 col-8" id="table">
+                    <thead>
+                    <tr>
+                        {# <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Id</font></font></th> #}
+                        <th scope="col" >etudiant</th>
+                        <th scope="col" class="thCol">email</th>
+                        <th scope="col" class="thCol">matricule</th>
+                        <th scope="col" class="thCol">classe</th>
+                    </tr>
+                    </thead>
+                    <tbody id="table_body">
+                    
+                    {% if tabClasseFiltrer  is empty  %}      
+                            {% for inscrit in inscrits %}
+                                <tr class="etudiant-inscrit"  data-id="{{ inscrit.etudiant.id }}">
+                                    <td class="name">{{ inscrit.etudiant.nomComplet }}</td>
+                                    <td>{{ inscrit.etudiant.email }}</td>
+                                    <td class="matricule">{{ inscrit.etudiant.matricule }}</td>
+                                    <td>{{ inscrit.classe.libelle }}</td>                     
+                                </tr>
+                                
+                            {% endfor %}
+                    {% else %}
+                            {% for inscritFromClasse in tabClasseFiltrer %}
+                                <tr class="etudiant-inscrit" id='tr'  data-id="{{ inscritFromClasse.etudiant.id }}">
+                                            <td class="name">{{ inscritFromClasse.etudiant.nomComplet }}</td>
+                                            <td>{{ inscritFromClasse.etudiant.email }}</td>
+                                            <td   class="matricule">{{ inscritFromClasse.etudiant.matricule }}</td>
+                                            <td>{{ inscritFromClasse.classe.libelle }}</td>                      
+                                </tr>
+                            {% endfor %}
+                        {% endif %}      
+                        
+                </tbody>
+            </table>
+
+            <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed font-weight-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Parcourir une année
+            </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+            <div class="accordion-body yearBody">
+                <div class="form-group">
+                  <label for="selectDate">Choississez l'année scolaire</label>
+                  {{ form_start(formSelectorYear) }}
+                         {# {{ form_widget(formSelectorYear.libelle, {
+                                'value':   app.session.get('currentYear').libelle
+                            }) }} #}
+                    {# <select class="form-control" name="" id="selectDate">
+                            <option selected> All</option>
+                            {% for year in app.session.get('years')  %}
+                                        <option value="{{year.id}} "> {{year.libelle}} </option>
+                            {% endfor %}
+                    </select> #}
+                    {{ form_end(formSelectorYear) }}
+                </div>
+            </div>
+            </div>
+        </div>
+  
+ 
+  </div>
+</div>
+  <div class="d-flex flex-column justify-content-center mt-3 col-8">
+                             {{knp_pagination_render(inscrits) }}
+                 </div>
+                 
+
+{% endblock %}
+
+{% block javascripts %}
+    {# {{parent()}} #}
+    <script src="{{ asset('build/inscription.js') }}" defer></script>
+    <script>
+        const tableRows = document.querySelectorAll('.etudiant-inscrit');
+
+
+        // Parcourt chaque ligne et ajoute un gestionnaire d'événements de clic
+        tableRows.forEach(row => {
+            const id = row.dataset.id; // Récupère l'ID à partir de l'attribut "data-id" de la ligne
+            const linkElements = row.querySelectorAll('.link');
+            // Ajoute le lien sur toute la ligne
+            row.addEventListener('click', () => {
+            window.location.href = "{{ path('app_inscription_show', {'id': '__id__'}) }}".replace('__id__', id);
+            });
+            row.style.cursor ="pointer";
+           
+    
+  });
+    
+    </script>
+
+    {% endblock %}

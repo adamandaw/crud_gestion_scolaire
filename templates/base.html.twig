@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Base{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="https://learn.groupeism.sn/branding/_167_1/loginLogo/CustomLoginLogo.png?m=kmkwro2u">
+        
+        
+        {% block stylesheets %}
+        <link rel="stylesheet" href=" {{ asset('css/base.css') }}">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+        <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.min.css">
+        <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.css">
+                
+        {# https://bootswatch.com/zephyr/ #}
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  
+        
+        {% endblock %}
+
+       
+    </head>
+    <body>
+     
+     <nav class="navbar navbar-expand-lg fond nav" data-bs-theme="dark">
+        <div class="container-fluid d-flex justify-content-end gap-5 mt-3">
+            
+                <p class="font-weight-bold" id="current_year" style="color:#f58612;">{{app.session.get('currentYear').libelle}}</p>
+                    {# <button type="button" class="fond_btn">{{world}}Professeurs</button> #}
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                    <a class="btn-logout" href="{{path('app_logout')}}">Déconnexion</a>
+                    <div class="btn-group " role="group">
+                        <button id="btnGroupDrop1" type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu mr-4" aria-labelledby="btnGroupDrop1">
+                         {% if app.user %}
+                                <h4  class="dropdown-item">{{ app.user.nomComplet }}</h4>
+                                <li class="border-top mt-3 pt-2 mx-4">
+                                   <a class="dropdown-item ms-0 me-0" href="#">
+                                     lien
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </div>
+                    </div>
+                    </div>
+
+            </div>
+            {# <div class="dropdown tools-item">
+                        <a href="#" class="" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <box-icon type='solid' color="#fefefe" name='user-pin'></box-icon>
+                        </a>
+                        
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                            {% if app.user %}
+                                <h4  class="dropdown-item">{{ app.user.nomComplet }}</h4>
+                                
+                                <li class="border-top mt-3 pt-2 mx-4">
+                                   <a class="dropdown-item ms-0 me-0" href="{{path('app_logout')}}">
+                                        <box-icon name='log-out' color="#f70a0a"></box-icon>
+                                      Se déconnecter
+                                    </a>
+                                </li>
+                            {% endif %}
+                           
+                        </div>
+                    </div> #}
+            {# <div class="collapse navbar-collapse" id="navbarColor02">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            menu ici a revoir ! ;(
+                        </a>
+          
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Option 1</a></li>
+                            <li><a class="dropdown-item" href="#">Option 2</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Option 3</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div> #}
+        </div>
+    </nav>
+
+    
+        {# fin header #}
+      {% block nav %}
+      {% set iconColor = '#f58612' %}
+        <div class="container-fluid">
+            <div class="row ">
+            
+                <div class="col-sm-auto sticky-top  fond side">
+                         <a class="navbar-brand" href=" {{path('app_home')}}"><img src="https://learn.groupeism.sn/branding/_167_1/loginLogo/CustomLoginLogo.png?m=kmkwro2u" id="image"></a>
+
+                    <div class="d-flex flex-sm-column flex-row flex-nowrap mt-5  align-items-center sticky-top">
+                    
+
+                        <a href="{{path('app_home')}}" class="d-block p-3 link-dark text-decoration-none" title="">
+                            <box-icon name='home' color='{{ iconColor }}' ></box-icon>
+                        </a>
+                        <div class="title">
+                            <small>Accueil</small>
+                        </div>
+                        <ul class="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
+                            <li class="nav-item">
+                                <a href="#"  id="newPopUp" class="nav-link py-3 px-2" title="" data-toggle="modal" data-target="#exampleModal">
+                                    <box-icon type='solid' name='file-plus' color='{{ iconColor }}' ></box-icon>
+
+                                </a>
+                                <div class="title">
+                                    <small>Nouveau</small>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#"  id="newPopUp" class="nav-link py-3 px-2">
+                                        <box-icon name='import' color='{{ iconColor }}'></box-icon>
+                                </a>
+                                <div class="title">
+                                    <small>Importer</small>
+                                </div>
+                            </li>
+                            
+                           
+                        </ul>
+
+                        {# <div class="dropdown">
+                            <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi-person-circle h2"></i>
+                            </a>
+                            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+                                <li><a class="dropdown-item" href="#">New project...</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                            </ul>
+                        </div> #}
+                    </div>
+                </div>
+
+         {% endblock %}       
+
+<div class="col-sm  min-vh-100" id="contentStyle">
+<!-- content -->
+{% block content %}
+  {% block newPopUp %}
+  {% set iconColor = '#f58612' %}
+            <!-- Button trigger modal -->
+                          
+
+                            <!-- Modal -->
+                            <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header" id="headerModal">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                      <h5 class="modal-title mt-5 ml-4" id="exampleModalLabel">Choississez une méthode</h5>
+
+                                  <div class="modal-body d-flex justify-content-between flex-wrap">
+                                  
+                                        <a href="{{path('app_classe_save')}} ">
+                                              <div class="card border-{{ iconColor }} mb-3" style="max-width: 10rem;">
+                                                  <div class="card-body d-flex flex-column">
+                                                  <box-icon type='solid' name='chalkboard'color='{{ iconColor }}'></box-icon>
+                                                  
+                                                    <p class="card-text font-weight-bold"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Classe</font></font></p>
+                                                  </div>
+                                              </div>
+                                        </a>                             
+                                        <a href="{{path('app_professeur_save')}} ">
+                                               <div class="card border-{{ iconColor }} mb-3" style="max-width: 10rem;">
+                                                    <div class="card-body d-flex flex-column">
+                                            
+                                                    <box-icon name='user' color='{{ iconColor }}'></box-icon>
+                                                      <p class="card-text font-weight-bold"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Professeur</font></font></p>
+                                                    </div>
+                                              </div>
+                                        </a>                             
+                                        <a href="{{path('app_inscription_store')}} ">
+                                               <div class="card border-{{ iconColor }} mb-3" style="max-width: 10rem;">
+                                                    <div class="card-body d-flex flex-column">
+                                            
+                                                    <box-icon name='user-plus' color='{{ iconColor }}'></box-icon>
+                                                      <p class="card-text font-weight-bold"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Inscription</font></font></p>
+                                                    </div>
+                                              </div>
+                                        </a>                             
+                                        <a href="{{path('app_reInscription')}} ">
+                                               <div class="card border-{{ iconColor }} mb-3" style="max-width: 10rem;">
+                                                    <div class="card-body d-flex flex-column">
+                                            
+                                                    <box-icon name='refresh' color='{{ iconColor }}'></box-icon>
+                                                      <p class="card-text font-weight-bold"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">re-Inscription</font></font></p>
+                                                    </div>
+                                              </div>
+                                        </a>                             
+                                        <a href="{{path('app_cours_new')}} ">
+                                               <div class="card border-{{ iconColor }} mb-3" style="max-width: 10rem;">
+                                                    <div class="card-body d-flex flex-column">
+                                                    <box-icon name='calendar' color='{{ iconColor }}'></box-icon>
+                                                      <p class="card-text font-weight-bold"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cours</font></font></p>
+                                                    </div>
+                                              </div>
+                                        </a>                             
+                                       
+
+                                                                   
+                                                                   
+                                                                  
+                                  </div>
+                                  <div class="modal-footer">
+                          
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                      {% endblock %}
+
+                        
+                    {% endblock content %}
+                </div>
+            </div>
+        </div>
+
+        
+        
+    </body>
+    {% block javascripts %}
+    <script src="{{ asset('js/base/script.js') }}"></script>
+
+    {% endblock %}
+
+    {% block cdn %}
+    {# <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"></script> #}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    {% endblock %}
+
+
+
+</html>

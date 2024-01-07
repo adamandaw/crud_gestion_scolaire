@@ -1,0 +1,56 @@
+{# {{ form_start(form) }}
+    {{ form_widget(form) }} #}
+    {# <button class="btn">{{ button_label|default('Save') }}</button> #}
+{# {{ form_end(form) }} #}
+
+
+            {{ form_start(form) }}
+            <div class=" header-form mt-5 col-10 ">
+                <h5>Enregistrement d’un nouveau Cours</h5>
+
+            </div >
+            <div class="form-bg d-flex  col-10  gap-5  justify-content-center">
+            
+                <div class="form-gauche ">
+                    <div class="form-group col-md-6">
+                                                {{ form_label(form.niveau) }}
+                                                    {{form_widget(form.niveau)}}
+                                </div>
+                                <div class="form-group col-md-6">
+                                        {{ form_label(form.classes) }}
+                                                    {{form_widget(form.classes)}}
+                                </div>
+                                 <div class="form-group col-md-6">
+                                {{ form_label(form.module) }}
+                                                {{form_widget(form.module)}}
+                            </div>
+                    
+                </div>
+                <div class="form-droite ">
+                    <div class="form-group col-md-6">
+                                {{ form_label(form.nbrHeureGlobal) }}
+                                                {{form_widget(form.nbrHeureGlobal)}}
+                            
+                            </div>
+                           
+                <div class="form-group col-md-6">
+                                            {{ form_label(form.professeur) }}
+                                                {{form_widget(form.professeur)}}
+                            </div>
+                            <div class="form-group">
+                            {{ form_label(form.semestre) }}
+                                                {{form_widget(form.semestre)}}
+                        </div>
+                         <div class="form-group">
+                            {{ form_label(form.publier) }}
+                                                {{form_widget(form.publier)}}
+                        </div>
+            </div>
+                    {# <div class="form-row">
+                        
+                        
+                    </div> #}
+              
+               </div>
+               
+     {{ form_end(form) }}

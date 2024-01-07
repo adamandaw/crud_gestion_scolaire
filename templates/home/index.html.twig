@@ -1,0 +1,313 @@
+{# {% extends is_granted('ROLE_PROFESSEUR') ? 'base.etudiant.professeur.html..html.twig' : 'base.html.twig' %} #}
+{% extends  'base.html.twig' %}
+{% block title %}Accueil{% endblock %}
+
+ {% block stylesheets %}
+   
+        {{parent()}}
+  
+              <link rel="stylesheet" href=" {{ asset('css/home/style.css') }}">
+       
+        {# https://bootswatch.com/zephyr/ #}
+        
+        {% endblock %}
+
+{% block nav %}
+{{parent()}}
+
+{% endblock %}
+
+
+{% block content %}
+{{parent()}}
+<div class="container">
+
+        
+    <div class="content d-flex flex-column">
+        <h4 id="cta" class="ml-4"> <box-icon name='box' type='solid' color='#110101' ></box-icon> Tous vos systèmes éducatifs</h4>
+        
+        {# {% if is_granted('ROLE_RP') %} #}
+                <div class="container d-flex justify-content-end gap-4">
+
+                         {% if app.session.has('crud_success') %}
+                            {% set crud_success = app.session.get('crud_success') %}
+                                <div class="card text-dark border-light mb-3" style="max-width: 20rem;" id="zoneDuCrudSuscces">
+                                        <div class=" crud_succes_header">
+                                            <box-icon name='comment-check'  color='#f58612' id="logo_crud_succes"></box-icon>
+                                        </div>
+                                            <div class="card-body d-flex flex-column justify-content-center align-items-center">                          
+                                                    <img src="{{asset('images/crud_success.jpg')}} " id="crud_success">
+                                                        <p class="card-text font-weight-bold" id="msg_crud"> {{crud_success}} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% set _ = app.session.remove('crud_success') %}
+                        {% endif %} 
+                </div>
+        {# {% endif %} #}
+        
+       
+   </div>
+
+
+        <h3 id="t-listes" class="font-weight-bold">Accès rapide</h3>
+
+   <div class="container col-9">
+                    <ul class="nav nav " role="tablist">
+                        <li class="nav-item " role="presentation">
+                            <a class="nav-link active texteDeLien" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab"><font style="vertical-align: inherit;font-weight: bold;"><font style="vertical-align: inherit;">Classes</font></font></a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link texteDeLien" data-bs-toggle="tab" href="#profile" aria-selected="false" role="tab" tabindex="-1"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Professeurs</font></font></a>
+                        </li>
+                        <li class="nav-item" >
+                            <a class="nav-link texteDeLien" href="{{path('app_inscription')}}" ><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Inscriptions</font></font></a>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle texteDeLien" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Dérouler</font></font></a>
+                            <div class="dropdown-menu" style="">
+                                <h6 class="dropdown-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Menus</font></font></h6>
+                                <a class="dropdown-item" href="{{path('app_cours_index')}} "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;color:black;">Planifier un cours</font></font></a>
+                                {# <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;color:orange;">xxx</font></font></a>
+                                <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;color:orange;">Quelque chose d'autre ici</font></font></a> #}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;color:red;">Clôturer l'année scolaire</font></font></a>
+                            </div>
+                        </li>
+                     </ul>
+            <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active show" id="home" role="tabpanel">
+                        {# section liste classe #}
+                 <div class="container d-flex justify-content-center flex-column" id="content">
+                            
+                        <div class="d-flex justify-content-end mt-3">
+                                    {# <a class="" href="{{path('app_classe_filtre')}}"> #}
+                                        <button type="button" id="filtreClasse" class="btn" data-toggle="modal" data-target="#monModalFiltre">Appliquer un filtre</button>      
+                                    {# </a> #}
+                        </div>
+                        {#  #}
+                           
+                        {#  #}
+                        <div class="zone-de-filtre">
+                            <div class="form-inline">
+                                    {{form_start(form)}}
+                                        <div class="form-group gap-4">
+                                            {{form_widget(form.niveau)}} 
+                                            {{form_widget(form.filiere)}} 
+                                            {{form_widget(form.save)}}                    
+                                        </div>
+                                        
+                                                       
+                                {{form_end(form)}}
+                            </div>
+                        </div>
+                        
+                        <h3 class= "mt-2 ">Listes des classes</h3>
+                    <table class=" mt-5 col-11" id="tableBg">
+                        <thead >
+                        <tr>
+                            <th scope="col">Libelle</th>
+                            <th scope="col">action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                       
+                        
+                        {% for cl in pagination %}
+                        
+                        <tr class="" id='tr'>
+                            <td class=" font-weight-bold"><a href="{{path('app_classe_detail',{id:cl.id} )}}">{{ cl.libelle }}</a></td>
+                            <td>
+                                <a  class="btn btn-outline-info btn-sm " href="{{path('app_classe_save',{id:cl.id} )}}">Modifier</a>
+                                  <a  class="btn btn-danger btn-sm " href="{{path('app_classe_archive',{id:cl.id} )}}">Archiver</a>
+                            </td>
+                           
+                        </tr>
+                        {% endfor %}
+
+                        
+                        
+
+                        </tbody>
+                    </table>
+                    <h5 class=" float-right d-flex justify-content-end">({{ pagination.getTotalItemCount }}) Classes</h5>
+                    {{knp_pagination_render(pagination) }}
+                    </div>
+                                </div>
+                {#fin  section liste classe #}
+
+            <div class="tab-pane fade" id="profile" role="tabpanel">
+                            <div class="d-flex justify-content-end mt-4">
+                                        <button type="button" id="filtreClasse" class="btn grade" data-toggle="modal" data-target="#filtreGrade">Appliquer un filtre</button>      
+                            </div>
+                         <div class="grade_filtre">
+                                {{form_start(formGrade)}}
+                                    <div class="form-inline gap-5">
+                                        {{form_widget(formGrade.grade)}}
+                                        {{form_widget(formGrade.save)}}
+                                        
+                                    </div>
+                                    
+                                {{form_end(form)}}
+                        </div>
+                        <h3 class= "mt-2 ">Listes des professeurs</h3>
+                    <table class="  mt-5 col-11">
+                            <thead>
+                            <tr>
+                                <th scope="col">Nom Complet</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Grade</th>
+                                <th scope="col">option</th>
+                                            
+                            </tr>
+                            </thead>
+                                    <tbody>
+                                    {% for professeur in paginationProfs %}
+                                    <tr class="">
+                                        <td> <a  class="font-weight-bold " href="{{path('app_professeur_detail',{id:professeur.id} )}}">{{ professeur.nomComplet }}</a></td>
+                                        <td>{{ professeur.email }}</td>
+                                        <td>{{ professeur.grade }}</td>
+                                        <td>
+                                                                <a  class="btn btn-outline-info btn-sm" href="{{path('app_professeur_save',{id:professeur.id} )}}">Modifier</a>
+                                                                {# <a  class="btn btn-danger btn-sm " href="{{path('app_professeur_save',{id:cl.id} )}}">Archiver</a> #}
+                                                            </td>
+                                                            {# <td>
+                                                                <a  class="btn btn-info btn-sm " href="{{path('app_professeur_save',{id:cl.id} )}}">Détails</a>
+                                                            </td> #}
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                    
+                                    </tbody>
+                        </table>
+                     {{knp_pagination_render(paginationProfs) }}
+            </div>
+            {# <div class="tab-pane fade" id="inscription" role="tabpanel">
+            </div> #}
+            <div class="tab-pane fade" id="dropdown2">
+                <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Fonds fiduciaire seitan typographie, keytar brut denim keffieh etsy art party avant de vendre le pull Master Cleanse sans gluten Squid Scenester Freegan Cosby. </font><font style="vertical-align: inherit;">Sac banane Portland Seitan DIY, fête artistique, cliché du loup locavore, High Life Echo Park Austin. </font><font style="vertical-align: inherit;">Cred vinyl keffieh DIY salvia PBR, banh mi avant de vendre le pull cosby locavore viral VHS de la ferme à la table.</font></font></p>
+            </div>
+            </div>
+    </div> 
+</div>
+
+{% block newPopUp %}    
+  <!-- Modal -->
+  {{parent()}}  
+                            <div class="modal fade " id="monModalFiltre" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header" id="headerModal">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+
+                                  <div class="modal-body container">
+                                        <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                    <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">details</font></font></th>
+                                                    <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">niveau</font></font></th>
+                                                    <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">filiere</font></font></th>
+                                                    <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Option</font></font></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% if classeFiltrer  is not empty %}
+                                                        {% for clFiltrer in classeFiltrer %}
+                                                            <tr class="" id='tr'>
+                                                                    <td class=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><a href="{{path('app_classe_detail',{id:clFiltrer.id} )}}">{{ clFiltrer.libelle }}</a></font></font></td>
+                                                                     <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ clFiltrer.niveau.libelle }}</font></font></td>
+                                                                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ clFiltrer.filiere.libelle }}</font></font></td> 
+                                                                    <td>
+                                                                        <a  class="btn btn-warning btn-sm " href="{{path('app_classe_save',{id:clFiltrer.id} )}}">Modifier</a>
+                                                                        <a  class="btn btn-danger btn-sm " href="{{path('app_classe_archive',{id:clFiltrer.id} )}}">Archiver</a>
+                                                                    </td>
+                                                    
+                                                            </tr>
+                                                        {% endfor %}
+                                                    {% endif %}   
+                                                    </tbody>
+                                            </table>                                  
+                                  </div>                                 
+                                </div>
+                              </div>
+                            </div>
+
+
+{# grade modal #}
+                             <div class="modal fade " id="filtreGrade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header" id="headerModal">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+
+                                  <div class="modal-body container">
+                                                {% set phraseDeFiltre = "Listes des professeurs ayants comme grade : "~ grade  %}
+                                                {# <h6>phraseDeFiltre</h6> #}
+                                        <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nom Complet</font></font></th>
+                                                        <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Email</font></font></th>
+                                                        <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Grade</font></font></th>
+                                                        <th scope="col"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">option</font></font></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                
+                                                  
+                                               
+                                                 {% if professeurFiltrer is not empty %}
+                                                        {{phraseDeFiltre}}
+                                                     {% for professeurF in professeurFiltrer %}
+                                                                 <tr class="">
+                                                                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> <a  class="btn btn-dark btn-sm " href="{{path('app_professeur_detail',{id:professeurF.id} )}}">{{ professeurF.nomComplet }}</a></font></font></td>
+                                                                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ professeurF.email }}</font></font></td>
+                                                                    <td><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">{{ professeurF.grade }}</font></font></td>
+                                                                    <td>
+                                                                        <a  class="btn btn-warning btn-sm " href="{{path('app_professeur_save',{id:professeurF.id} )}}">Modifier</a>
+                                                                    </td>
+                                                                                       
+                                                                </tr>
+                                   
+                                                    {% endfor %}
+                                                     {% else %}
+                                                            <tr>
+                                                                <td colspan="4" class="bg-warning"  ><h6>Aucune sélection n'a été faite.</h6></td>
+                                                            </tr>
+                                                    {% endif %}
+                                                    
+                                                    
+                                                   
+                                                   
+                                                    </tbody>
+                                            </table>
+                                                                     
+                                       
+
+                                                                   
+                                                                   
+                                                                  
+                                  </div>
+                                  
+                                </div>
+                              </div>
+                            </div>
+{% endblock %}
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('js/home/script.js') }}"></script>
+    {% endblock %}
+
+  

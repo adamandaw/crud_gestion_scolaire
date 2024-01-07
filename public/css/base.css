@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins:ital,wght@1,200;1,400&family=Roboto&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+}
+:root {
+    --couleurBrun: #351f16;
+    --orange:#f58612;
+  }
+#image{
+    width: 40px;
+    height: 40px;
+    /* margin-top: 20px; */
+}
+.fond{
+    background-color: var(--couleurBrun);
+}
+.side{
+    width: 30px;
+}
+.nav{
+height: 8vh;
+}
+.title{
+    color: whitesmoke;
+}
+#headerModal{
+    background: rgb(53,31,22);
+    background: linear-gradient(90deg, rgba(53,31,22,1) 9%, rgba(245,134,18,1) 87%);
+
+}
+#modalBody{
+    width: 600px;
+}
+
+/* acceuil css */
+
+/* #listes{
+    color: red;
+} */
+
+/* #tableBg{
+    background-color: #4185b3;
+} */
+/* 
+.texteDeLien{
+    color: rgb(26, 255, 0);
+} */
+/*fin acceuil css */
+
+
+#contentStyle{
+    background-color: #f7f3f2;
+}
+
+
+/* clsse*/
+
+.pagination{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.pagination span a{
+   color:  rgb(255, 255, 255);
+   font-weight: bold;
+   background-color: black;
+   padding: 7px;
+   text-decoration: none;
+}
+.current{
+    background-color: var(--orange);
+    color: white;
+    font-weight: bold;
+    padding: 7px;
+}
+/* .last{
+    display: none;
+}
+.first{
+    display: none;
+} */
+/* clsse*/
+/* vue detail classe */
+.detail-main{
+    margin-top: 100px;
+    margin-left: 80px;
+}
+#detail-title{
+    text-align: center;
+    font-weight: bold;
+    box-shadow: -19px 4px 5px -3px rgba(0,0,0,0.11);
+-webkit-box-shadow: -19px 4px 5px -3px rgba(0,0,0,0.11);
+-moz-box-shadow: -19px 4px 5px -3px rgba(0,0,0,0.11);
+}
+.btn-logout{
+    /* border: 2px solid var(--couleurBrun); */
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    /* border-radius: 10px; */
+    font-weight: bold;
+    padding: 18px;
+    color: white;
+    background-color: var(--orange);
+    /* text-decoration: underline; */
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    /* padding: 0px; */
+  }
+.btn-logout:hover {
+    color: white;
+    text-decoration: none;
+    background: #ff8500;
+    background: linear-gradient(133deg,#ff8500 0%, #ff8500 20%);
+    background: -webkit-linear-gradient(133deg,#ff8500 0%, #ff8500 20%);
+    background: -moz-linear-gradient(133deg,#ff8500 0%, #ff8500 20%);
+  }
+/* vue detail classe */

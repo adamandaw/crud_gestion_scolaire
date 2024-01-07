@@ -1,0 +1,109 @@
+:root {
+    --couleurBrun: #351f16;
+    --orange:#f58612;
+    --violet:#3c39ac;
+  }
+#professeur_classes ,#professeur_nomComplet, #professeur_grade, #professeur_email,#professeur_modules{
+/* width: 250px; */
+/* padding: 20px; */
+/* border: 3px solid black; */
+outline: none;
+font-weight: bold;
+color: black;
+box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.28);
+-webkit-box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.28);
+-moz-box-shadow: 3px 4px 5px 0px rgba(0,0,0,0.28);
+}
+ #professeur_email::placeholder{
+font-style: 1px;
+font-weight: normal;
+color: var(--couleurBrun);
+
+}
+#professeur_nomComplet::placeholder{
+font-style: 1px;
+font-weight: normal;
+color: var(--couleurBrun);
+
+}
+
+
+#professeur_grade option{
+    color: black;
+    font-weight: bold;
+}
+.forme{
+    width: 900px;
+    background-color: var(--couleurBrun);
+    display: flex;
+    justify-content: space-between;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 40px;
+    padding: 40px;
+    box-shadow: -42px -6px 29px -28px rgba(0,0,0,0.39);
+-webkit-box-shadow: -42px -6px 29px -28px rgba(0,0,0,0.39);
+-moz-box-shadow: -42px -6px 29px -28px rgba(0,0,0,0.39);
+}
+.surface_gauche{
+    background-color: var(--couleurBrun);
+    width: 330px;
+    margin-right: 50px;
+    padding-right: 50px;
+    border-right: 2px solid white;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+#title{
+    color: white;
+    text-align: center;
+    text-transform: capitalize;
+}
+label{
+    color: white;
+text-transform: capitalize;
+}
+#professeur_classes,#professeur_modules option{
+    padding: 5px;
+    font-weight: normal;
+    font-style: 12px;
+    color: black;
+    /* background-color: gainsboro; */
+    /* opacity: 0.5; */
+    }
+#professeur_save{
+    background-color: var(--orange);
+    color: white;
+    border-radius: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 500px;
+    height: 8vh;
+}
+#professeur_save:hover{
+    background-color: rgb(221, 221, 221);
+    color: black;
+    /* opacity: 0.6; */
+}
+
+@keyframes myAnimation {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(360deg);
+    }
+    /* 50%{
+        transform: translate(-40px,21px);
+-webkit-transform: translate(-40px,21px);
+-moz-transform: translate(-40px,21px);
+    } */
+    }
+    
+    .animation {
+    animation-name: myAnimation;
+    animation-duration: 12s;
+    animation-iteration-count: infinite;
+    }

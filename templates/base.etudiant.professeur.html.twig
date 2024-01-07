@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+     <title>{% block title %}Base{% endblock %}</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     {% block stylesheets %}
+        <link rel="stylesheet" href=" {{ asset('css/base.otherUsers.css') }}">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+        <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.min.css">
+        <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.css">
+                     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+        {# https://bootswatch.com/zephyr/ #}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+             <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        
+        {% endblock %}
+    {% block css %}
+    
+    {% endblock %}
+
+  </head>
+  <body>
+  {% block content %}
+  <nav class="navbar navbar-expand-lg fond_sidebar" data-bs-theme="dark">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse d-flex justify-content-end gap-4" id="navbarColor01">    
+                    <p class="font-weight-bold" id="current_year" style="color:#f58612;">{{app.session.get('currentYear').libelle}}</p>
+        <a class="btn-logout" href="{{path('app_logout')}}">Déconnexion</a>
+    </div>
+  </div>
+</nav>
+  {#  #}
+
+             <div class="container-fluid">
+            
+              
+        <div class="row">
+            <!-- Barre latérale -->
+            <div class="col-2 sidebar fond_sidebar d-flex flex-column">
+                <!-- Contenu de la barre latérale -->
+                  <a class="navbar-brand text-center" href=" {{path('app_home_other_users')}}"><img src="https://learn.groupeism.sn/branding/_167_1/loginLogo/CustomLoginLogo.png?m=kmkwro2u" id="image"></a>
+                <ul class="nav flex-column text-center mt-5">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{{path('app_home_other_users')}}">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="#">Mon Profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="#">Paramètres</a>
+                    </li>
+                    {# <li class="nav-item">
+      <a class="nav-link bg-white collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUtilities"
+        aria-expanded="true" aria-controls="collapseUtilities">
+        <span>Menus</span>
+      </a>
+      <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Faites une action:</h6>
+          <a class="collapse-item" href="#">Nouveau Menu</a>
+          <a class="collapse-item" href="#">Listes des menus</a>
+          <a class="collapse-item" href="utilities-animation.html">Animations</a>
+          <a class="collapse-item" href="utilities-other.html">Other</a>
+        </div>
+      </div>
+    </li> #}
+                </ul>
+            </div>
+            <!-- Contenu principal -->
+            
+            <div class="col-10">
+                <!-- Menu de navigation -->
+               
+                
+                {% block content_page %}
+                    <!-- Votre contenu principal ici -->
+                
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+  {% endblock %}
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+{% block javascripts %}
+{# <script src="{{ asset('js/base/otherUser.script.js') }}"></script> #}
+
+{% endblock %}
+
+
+{% block cdn %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+{% endblock %}
+
+  </body>
+</html>

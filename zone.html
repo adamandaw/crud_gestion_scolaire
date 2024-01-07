@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .header {
+            font-weight: bold;
+        }
+        .course {
+            background-color: #e6f7ff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Calendrier Dynamique</h1>
+    <div id="calendar"></div>
+
+.contain
+</body>
+<script>
+// Fonction pour générer le calendrier/planning des cours
+function generateCourseCalendar() {
+    // Obtenir l'élément div qui contiendra le calendrier
+    var calendarDiv = document.getElementById("calendar");
+
+    // Tableau des heures de cours
+    var hours = ['8h - 10h', '10h - 12h', '13h - 15h', '15h30 - 17h'];
+
+    // Tableau multidimensionnel représentant les cours
+    var courses = [
+        ['Mathématiques', 'Physique', '', '', '', ''],
+        ['Anglais', 'Histoire', '', '', '', ''],
+        ['Php', '', '', '', '', ''],
+        ['', '', '', '', '', '']
+    ];
+
+    // Créer la table du calendrier/planning
+    var table = document.createElement("table");
+
+    // Créer la ligne des jours de la semaine
+    var daysRow = document.createElement("tr");
+    daysRow.appendChild(document.createElement("th")); // Case vide pour l'angle supérieur gauche
+
+    // Obtenir la date actuelle
+    var currentDate = new Date();
+
+    // Ajouter les cellules des dates du jour actuel au samedi
+    for (var i = 0; i < 6; i++) {
+        var dayCell = document.createElement("th");
+        var date = currentDate.getDate() + i; // Ajouter le jour actuel + index
+
+        // Gérer les dépassements de jours dans le mois
+        if (date > getLastDayOfMonth(currentDate)) {
+            date -= getLastDayOfMonth(currentDate);
+        }
+        
+        dayCell.innerHTML = date;
+        daysRow.appendChild(dayCell);
+    }
+    table.appendChild(daysRow);
+
+    // Créer les lignes pour chaque heure de cours
+    for (var hourIndex = 0; hourIndex < hours.length; hourIndex++) {
+        var hourRow = document.createElement("tr");
+
+        // Colonne des heures de cours
+        var hourCell = document.createElement("th");
+        hourCell.innerHTML = hours[hourIndex];
+        hourCell.classList.add("header");
+        hourRow.appendChild(hourCell);
+
+        // Colonnes pour chaque jour de la semaine
+        for (var dayIndex = 0; dayIndex < 6; dayIndex++) {
+            var courseCell = document.createElement("td");
+            courseCell.innerHTML = courses[hourIndex][dayIndex];
+            courseCell.classList.add("course");
+            hourRow.appendChild(courseCell);
+        }
+
+        table.appendChild(hourRow);
+    }
+
+    // Ajouter la table au div du calendrier
+    calendarDiv.appendChild(table);
+}
+
+// Fonction pour obtenir le dernier jour du mois
+function getLastDayOfMonth(date) {
+    var nextMonth = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+    var lastDay = new Date(nextMonth - 1);
+    return lastDay.getDate();
+}
+
+// Appeler la fonction pour générer le calendrier/planning des cours
+generateCourseCalendar();
+</script>
+</html>

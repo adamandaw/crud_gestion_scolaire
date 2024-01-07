@@ -1,0 +1,241 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cours{% endblock %}
+{% block stylesheets  %}
+{{parent()}}
+ <link rel="stylesheet" href=" {{ asset('css/cours/style.css') }}">
+ <link rel="stylesheet" href=" {{ asset('css/cours/show.style.css') }}">
+{% endblock %}
+{% block content %}
+{{parent()}}
+<div class="container col-10">
+    <div class="entete d-flex justify-content-between my-5 align-item-center">
+        <h1 class="font-weight-bold">{{ cour.module.libelle }}</h1>
+        {# <div class="lien">
+            <a href="{{ path('app_cours_new') }}" id="new_cuurs">Nouveau</a>
+        </div>  #}
+        
+    </div>
+    {# debt #}
+{# <ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" data-bs-toggle="tab" href="#Absences" aria-selected="false" tabindex="-1" role="tab">Absences</a>
+  </li>
+</ul>
+<div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade" id="Absences" role="tabpanel">
+    <p>Absences ici</p>
+  </div>
+ 
+</div> #}
+{# fin #}
+    <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+            <a class="nav-link" data-bs-toggle="tab" href="#Absences" aria-selected="false" tabindex="-1" role="tab">Absences</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" data-bs-toggle="tab" href="#session" aria-selected="true" role="tab">Session de Planification</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link " data-bs-toggle="tab" href="#information" aria-selected="false" role="tab" tabindex="-1">Informations du cours</a>      
+        </li>
+          
+    </ul>
+        <div id="myTabContent" class="tab-content my-5">
+            <div class="tab-pane fade" id="Absences" role="tabpanel">
+                    
+                    <h3 class="font-weight-bold">Listes des absents</h3>
+                    <table class="">
+                            <thead>
+                                <tr>
+                                    <th>etudiant </th>
+                                    <th>date du cour</th>
+                                </tr>
+                            </thead>
+                        <tbody>
+                            {% for absent in absences %}
+                                <tr>
+                                    <td>{{ absent.etudiant.nomComplet }}</td>
+                                    <td>{{ absent.planning.createAt|date('d-m-Y') }}</td>
+                                </tr>
+                            {% else %}    
+                            <td colspan="7">Aucune absences pour ce cour.</td>
+                    {% endfor %}
+                        </tbody>
+                </table>
+                 {{knp_pagination_render(absences) }}
+                </div>
+        <div class="tab-pane fade active show" id="session" role="tabpanel">
+        {% if sessionOfPlanning is empty %}
+                <div class="lien {{ cour.nbrHeureGlobal == cour.nbrHeurePlanifier ? 'd-none' : ''}} d-flex justify-content-center flex-column align-items-center gap-4">
+                    <box-icon name='loader-alt' animation='spin' color='#f58612' ></box-icon>
+                    <span id="info">Ça semble vide par ici,<br> commençons par planifier une session de cours.</span>
+                    <a href="{{ path('app_planning_new') }}" id="new_planning">Allons - y</a>
+                </div> 
+            {% else %}
+             <div class="d-flex justify-content-end" id="session" role="tabpanel">
+                <a href="{{ path('app_planning_new') }}" id="new_planning" class="">Plannifier</a>
+             </div> 
+                <table class="">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>date </th>
+                            <th>heure de debut</th>
+                            <th>heure de fin</th>
+                            <th>etat</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            {% for planning in sessionOfPlanning %}
+                                <tr >
+                                    <td>{{ planning.id }}</td>
+                                    <td>{{ planning.createAt ? planning.createAt|date('d-m-Y') : '' }}</td>
+                                    <td>{{ planning.beginAt ? planning.beginAt|date('H:i') : '' }}</td>
+                                    <td>{{ planning.endAt ? planning.endAt|date('H:i') : '' }}</td>
+                                    <td>{{ planning.state ? 'Déjà Effectuer' : 'Pas Effectuer' }}</td>
+                                     
+                                    <td class="nav">
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle texteDeLien" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Options</font></font></a>
+                                        <div class="dropdown-menu" style="">
+                                             <a class="dropdown-item"  href="{{ path('app_planning_validate', {'id': planning.id}) }}">valider cette session de cours</a>
+                                            <a class="dropdown-item" href="{{ path('app_planning_edit', {'id': planning.id}) }}">modifier </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{{ path('app_planning_trash', {'id': planning.id}) }}" style="vertical-align: inherit;color:red;">annuler cette session de cours</a>
+                                        </div>
+                                    </li>
+                                       
+                                        {# <a href="{{ path('app_planning_show', {'id': planning.id}) }}">modifier</a> #}
+                                    </td>
+                                </tr>
+                            {% else %}
+                        
+                            <td colspan="7">Aucune session n'a été Planifier pour ce cour.</td>
+                        
+                    {% endfor %}
+                    </tbody>
+                </table>
+        {% endif %}
+        <!-- Button trigger modal -->
+{# <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#planifier_session">
+  allony - y 
+  je met le formulaire pour ajouter une planificvation
+ </button> #}
+
+<!-- Modal -->
+{# <div class="modal fade" id="planifier_session" tabindex="-1" aria-labelledby="modal_planification" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal_planification">Planifier une session de cours</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          
+{{ form_start(formPlanning) }}
+    <div class="container mt-5 ">
+     <div class="form-row  card col-10  ">
+         <h3 id="title-form-planning">Nouvelle Plannification</h3>
+                        <div class="form-group col-md-9 ">
+                                        {{ form_label(formPlanning.createAt) }}
+                                             {{ form_widget(formPlanning.createAt) }}
+                        </div>
+                            <div class="d-flex ">
+                                <div class="form-group col-md-6 ">
+                                {{ form_label(formPlanning.beginAt) }}
+                                                    {{form_widget(formPlanning.beginAt)}}
+                                </div>
+                                <div class="form-group col-md-6 ">
+                
+                                {{ form_label(formPlanning.endAt) }}
+                                                    {{form_widget(formPlanning.endAt)}}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-9 ">
+                
+                                {{ form_label(formPlanning.save) }}
+                                                    {{form_widget(formPlanning.save)}}
+                                </div>
+                                <button class="btn">{{ button_label|default('Publier') }}</button>
+            </div>
+    </div>
+         #}
+
+
+
+{# {{ form_end(formPlanning) }}
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>  #}
+{# end popou #}
+            
+            
+        </div>
+
+{# ------------------------------------------------------------- #}
+        <div class="tab-pane fade  d-flex justify-content-between gap-4  col-12" id="information" role="tabpanel">
+                <div class="tableau">
+                    <table class="">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>professeur</th>
+                                <th>module</th>
+                                <th>semestre</th>
+                                <th>classes</th>
+                            </tr>
+                    </thead>
+                        <tbody>
+                            <tr class="text-center">
+                                <td>{{ cour.id }}</td>
+                                <td>{{ cour.professeur.nomComplet }}t</td>
+                                <td>{{ cour.module.libelle }}</td>
+                                <td>{{ cour.semestre.libelle }}</td>
+                                <td> {{ libelles }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> 
+
+                {# zone tableau 2 #}
+            {% set heure = 'Heure' %}
+                <div class="">
+                    <h3 class="font-weight-bold">Heures</h3>
+                        <ul class="d-flex flex-column justify-content-between gap-2">
+                            <li>{{heure}} Global  <span class="badge rounded-pill heures ">   {{ cour.nbrHeureGlobal }} h</span></li>
+                            <li>{{heure}} Planifier <span class="badge rounded-pill heures">  {{ cour.nbrHeurePlanifier }} h</span></li>
+                            <li>{{heure}} Effectuer <span class="badge  rounded-pill heures">  {{ cour.nbrHeureEffectuer }} h</span></li>
+                        </ul>    
+                </div>
+        </div>  
+
+
+            
+</div>
+
+
+ <a href="{{ path('app_cours_index') }}">retour sur la liste</a>
+</div>
+    
+    
+
+   
+
+   
+
+    {# <a href="{{ path('app_cours_edit', {'id': cour.id}) }}">edit</a> #}
+
+    {# {{ include('cours/_delete_form.html.twig') }} #}
+{% endblock %}
+{% block javascripts %}
+    {# {{parent()}} #}
+    <script src="{{ asset('js/cours/script.js') }}"></script>
+    {% endblock %}

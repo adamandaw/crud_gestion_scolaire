@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ReInscription{% endblock %}
+{% block stylesheets %}
+{{parent()}}
+<link rel="stylesheet" href=" {{ asset('css/inscription/style.css') }}">
+<link rel="stylesheet" href=" {{ asset('css/reInscription/style.css') }}">
+{% endblock %}
+{% block content %}
+{{parent()}}
+
+<div class="container mt-5 d-flex justify-content-center ">
+    <div class="form-inline ">
+            {{ form_start(formMatricule) }}
+                <div class="form-group gap-4">
+                    {{form_widget(formMatricule.matricule)}} 
+                    {{form_errors(formMatricule.matricule)}} 
+                    {{form_widget(formMatricule.submit)}}                    
+                </div>                       
+        {{ form_end(formMatricule) }}
+    </div>
+</div>
+
+<div class="container mt-5 d-flex justify-content-between col-12 ">
+    {% set precedente = "précedente" %}
+        <div class="">
+ {% if studentData is not empty %}
+    {# {% for item in etudiant %} #} 
+        {# {% if not item.isArchived %} #}
+            {# <h1>Infos de l'étudiant</h1>
+            <p>Nom Complet : {{item.nomComplet}} né(e) le {{item.dateDeNaissanceAt|date('d/m/Y')}}</p>
+            <p>Matricule : {{item.matricule}}</p>
+            <p>Email : {{item.email}}</p>
+            <p>Nom du Tuteur : {{item.tuteur}}</p> #}
+            {# <p>Classe {{precedente}} : {{item.classe.libelle}}</p> #}
+            {# <p>Année Scolaire {{precedente}} : {{item.anneeScolaire.libelle}}</p> #}
+        {# {% endif %} #}
+    {# {% endfor %} #}
+
+    {# debut #}
+    
+    {% for item in studentData %}
+    {% if item.nomComplet is defined and item.dateDeNaissanceAt is defined %}
+        {# C'est un objet de la classe Etudiant #}
+        <h1 id="info">Infos etudiant</h1>
+          <div class="info_etudiant rotate-scale-down-diag-2"> 
+                    <h3 id="nom">{{ item.nomComplet }}</h3>
+                    {# né(e) le {{ item.dateDeNaissanceAt|date('d/m/Y') #}
+                    <p class="card-subtitle mb-2 text-muted">Matricule : {{ item.matricule }}</p>
+                    <p>Email : {{ item.email }}</p>
+                    <p>Nom du Tuteur : {{ item.tuteur }}</p>
+                    <p>Sexe : {{ item.sexe }}</p>
+                    <p>Lieu de Naissance : {{ item.lieuDeNaissance }}</p>
+                {% elseif item.classe is defined and item.anneeScolaire is defined %}
+                    {# C'est un objet de la classe Inscription #}
+                            <p>Classe précédente : {{ item.classe.libelle }}</p>
+                    <p>Année Scolaire précédente : {{ item.anneeScolaire.libelle }}</p>
+            </div>
+        {% endif %}
+{% endfor %}
+    {# finnn #}
+{% else %}
+    <p id='p'>Effectuez la recherche avec un matricule valide.</p>
+{% endif %}
+        
+        </div>
+          {# 'value':   etudiant is not empty ? etudiant[0].classe.id : '', #}
+        <div class="formulaire scale-up-right">
+                {# {{ form_start(formReInscription) }} #}
+                        {# {{ form_label(formReInscription.classe) }} #}
+                        {# {{ form_widget(formReInscription.classe, {'attr': {'class': 'form-control'}}) }} #}
+                             {# {{ form_errors(formReInscription.classe) }} #}
+                            {# {{ form_label(formReInscription.montant) }}
+                            {{ form_widget(formReInscription.montant) }}
+                            {{ form_errors(formReInscription.montant) }} #}
+
+                {# {{ form_end(formReInscription) }} #}
+                 <form action="{{ path('app_reInscription')}}" method="POST">
+                        <div class="form-group">
+                          <label for="Classe">Classe</label>
+                          <select class="form-control" name="Classe" id="Classe">
+                                <option>choisir (la nouvelle classe).</option>
+                                {% for classe in classeSuperieur %}
+                                    {% for cl in classe %}
+                                        <option value="{{ cl.id }}">{{ cl.libelle }}</option>
+                                    {% endfor %}
+                                {% endfor %}
+                          </select>
+                        </div>
+                        <div class="form-group d-flex flex-column">
+                        <label for="Montant">Montant</label>
+                                <input type="number" name="montant" id="Montant" placeholder="saisir un montant">
+                                <small id="montant-error" style="color: red; display: none;">Le montant doit être un nombre positif.</small>
+                        </div>
+                        <button type="submit" class="ajouter btn  btn-sm float-right" name="Enregistrer_reinscription" onclick="validateForm()">Enregistrer</button>
+                   
+           
+                    </form>
+    
+        </div>
+ 
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{# {{parent()}} #}
+<script src="{{ asset('js/reInscriptions/script.js') }}"></script>
+{% endblock %}

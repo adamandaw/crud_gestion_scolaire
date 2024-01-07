@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planning index{% endblock %}
+
+{% block content %}
+    <h1>Planning index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreateAt</th>
+                <th>BeginAt</th>
+                <th>EndAt</th>
+                <th>IsArchived</th>
+                <th>etat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for planning in plannings %}
+            <tr>
+                <td>{{ planning.id }}</td>
+                <td>{{ planning.createAt ? planning.createAt|date('d-m-Y') : '' }}</td>
+                <td>{{ planning.beginAt ? planning.beginAt|date('H:i') : '' }}</td>
+                <td>{{ planning.endAt ? planning.endAt|date('H:i') : '' }}</td>
+                <td>{{ planning.isArchived ? 'Yes' : 'No' }}</td>
+                <td>{{ planning.state ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_planning_show', {'id': planning.id}) }}">valider</a>
+                    <a href="{{ path('app_planning_show', {'id': planning.id}) }}">show</a>
+                    <a href="{{ path('app_planning_edit', {'id': planning.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_planning_new') }}">Create new</a>
+{% endblock %}
